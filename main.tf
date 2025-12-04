@@ -113,10 +113,16 @@ module "asg" {
   target_group_arn  = module.alb.target_group_arn
 
   # New variables for Java app
+  ami_id             = "ami-072e7378ecd62a7b1"
   efs_id             = module.efs.file_system_id
   rds_endpoint       = module.rds.rds_endpoint
   db_user            = var.db_username
   db_password        = var.db_password
   memcached_endpoint = module.elasticache.endpoint
   backend_ip         = module.ec2.private_ip
+}
+
+module "cloudwatch" {
+  source   = "./modules/cloudwatch"
+  asg_name = module.asg.asg_name
 }

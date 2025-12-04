@@ -1,6 +1,6 @@
 resource "aws_launch_template" "main" {
   name_prefix   = "${var.project_name}-template"
-  image_id      = data.aws_ami.amazon_linux_2023.id
+  image_id      = var.ami_id
   instance_type = var.alb_instance_type
 
   block_device_mappings {
@@ -8,7 +8,7 @@ resource "aws_launch_template" "main" {
 
     ebs {
       volume_size           = 10
-      volume_type           = "gp2"
+      volume_type           = "gp3"
       delete_on_termination = true
     }
   }
@@ -39,6 +39,8 @@ resource "aws_autoscaling_group" "main" {
   min_size            = var.min_size
   target_group_arns   = [var.target_group_arn]
   vpc_zone_identifier = var.subnet_ids
+
+  termination_policies = ["OldestInstance"]
 
   launch_template {
     id      = aws_launch_template.main.id

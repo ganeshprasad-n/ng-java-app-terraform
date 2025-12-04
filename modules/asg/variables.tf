@@ -77,3 +77,8 @@ variable "memcached_endpoint" {
 variable "backend_ip" {
   type = string
 }
+
+variable "ami_id" {
+  description = "AMI ID for launch template"
+  type        = string
+}

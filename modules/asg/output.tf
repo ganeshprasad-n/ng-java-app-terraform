@@ -12,3 +12,8 @@ output "asg_instance_id" {
   description = "ASG Instance Id"
   value       = data.aws_instances.asg_instances.ids
 }
+
+output "asg_name" {
+  description = "ASG name"
+  value       = aws_autoscaling_group.main.name
+}
