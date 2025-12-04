@@ -22,3 +22,11 @@ output "alb_sg_id" {
   description = "ID of ALB security group"
   value       = aws_security_group.alb.id
 }
+
+output "elasticache_sg_id" {
+  value = aws_security_group.elasticache.id
+}
+
+output "backend_sg_id" {
+  value = aws_security_group.backend.id
+}

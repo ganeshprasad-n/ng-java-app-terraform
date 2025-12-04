@@ -8,9 +8,9 @@ terraform {
   required_version = ">= 1.6.0"
 
   backend "s3" {
-    bucket         = "infrabucket-iacgitops-eu-west-2"
-    key            = "tfstate-wordpress-prod"
-    region         = "eu-west-2"
+    bucket         = "ng-java-app-terraform"
+    key            = "staging"
+    region         = "us-east-1"
     dynamodb_table = "tfstate-dynamo-lock"
     encrypt        = true
   }

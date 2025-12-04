@@ -52,3 +52,28 @@ variable "instance_profile" {
   description = "IAM Instance Profile"
   type        = string
 }
+
+variable "efs_id" {
+  type = string
+}
+
+variable "rds_endpoint" {
+  type = string
+}
+
+variable "db_user" {
+  type = string
+}
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "memcached_endpoint" {
+  type = string
+}
+
+variable "backend_ip" {
+  type = string
+}

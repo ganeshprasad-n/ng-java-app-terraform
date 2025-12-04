@@ -1,5 +1,5 @@
-# EC2 Instance
-resource "aws_instance" "wordpress" {
+# Backend Services EC2 (RabbitMQ + Elasticsearch)
+resource "aws_instance" "backend" {
   ami           = data.aws_ami.amazon_linux_2023.id
   instance_type = var.ec2_instance_type
 
@@ -12,13 +12,7 @@ resource "aws_instance" "wordpress" {
   user_data = base64encode(local.ec2_userdata_script)
 
   tags = {
-    Name        = "${var.project_name}-ec2"
+    Name        = "${var.project_name}-backend-services"
     Environment = var.environment
   }
-}
-
-resource "aws_lb_target_group_attachment" "wordpress" {
-  target_group_arn = var.target_group_arn
-  target_id        = aws_instance.wordpress.id
-  port             = 80
 }

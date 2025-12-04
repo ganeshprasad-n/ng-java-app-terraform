@@ -41,7 +41,7 @@ module "ec2" {
   vpc_id             = module.network.vpc_id
   aws_region         = var.aws_region
   subnet_id          = module.network.private_subnet_ids[1]
-  security_group_ids = [module.security.ec2_sg_id]
+  security_group_ids = [module.security.backend_sg_id]
   target_group_arn   = module.alb.target_group_arn
   ec2_instance_type  = var.ec2_instance_type
 }
@@ -73,6 +73,16 @@ module "rds" {
   security_groups   = [module.security.rds_sg_id]
 }
 
+# ElastiCache Module
+module "elasticache" {
+  source = "./modules/elasticache"
+
+  project_name    = var.project_name
+  environment     = var.environment
+  subnet_ids      = module.network.private_subnet_ids
+  security_groups = [module.security.elasticache_sg_id]
+}
+
 # Load Balancer Module
 module "alb" {
   source = "./modules/alb"
@@ -100,4 +110,12 @@ module "asg" {
   subnet_ids        = module.network.private_subnet_ids
   security_groups   = [module.security.ec2_sg_id]
   target_group_arn  = module.alb.target_group_arn
+
+  # New variables for Java app
+  efs_id             = module.efs.file_system_id
+  rds_endpoint       = module.rds.rds_endpoint
+  db_user            = var.db_username
+  db_password        = var.db_password
+  memcached_endpoint = module.elasticache.endpoint
+  backend_ip         = module.ec2.private_ip
 }

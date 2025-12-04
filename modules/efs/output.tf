@@ -12,3 +12,7 @@ output "mount_target_ids" {
   description = "IDs of EFS mount targets"
   value       = aws_efs_mount_target.main[*].id
 }
+
+output "file_system_id" {
+  value = aws_efs_file_system.main.id
+}
