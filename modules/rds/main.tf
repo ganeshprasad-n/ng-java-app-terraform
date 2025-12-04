@@ -17,9 +17,10 @@ resource "aws_db_instance" "main" {
   storage_type        = var.db_storage_type
   db_name             = var.db_name
   username            = var.db_username
+  password            = var.db_password
   publicly_accessible = false
 
-  manage_master_user_password = true
+# manage_master_user_password = true
   skip_final_snapshot         = true
 
   vpc_security_group_ids = var.security_groups

@@ -11,7 +11,7 @@ terraform {
     bucket         = "ng-java-app-terraform"
     key            = "staging"
     region         = "us-east-1"
-    dynamodb_table = "tfstate-dynamo-lock"
+    dynamodb_table = "ng-java-app-terraform-lock"
     encrypt        = true
   }
 }

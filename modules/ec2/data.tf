@@ -25,27 +25,29 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-# Policy Document
-data "aws_iam_policy_document" "rds_and_secret_manager" {
+# Dynamic data sources
+data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
+
+# Policy Document - UPDATED FOR SSM
+data "aws_iam_policy_document" "rds_and_ssm_access" {
   statement {
     actions = [
-      "elasticfilesystem:DescribeFileSystems",
-      "elasticfilesystem:DescribeMountTargets",
       "rds:DescribeDBInstances",
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret"
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+      "elasticfilesystem:DescribeFileSystems",
+      "elasticfilesystem:DescribeMountTargets"
     ]
 
     resources = [
-      "arn:aws:secretsmanager:eu-west-2:442042522885:secret:*",
-      "arn:aws:rds:eu-west-2:442042522885:db:*",
-      "arn:aws:elasticfilesystem:eu-west-2:442042522885:file-system/*",
-      "arn:aws:elasticfilesystem:eu-west-2:442042522885:access-point/*"
+      "arn:aws:rds:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:db:*",
+      "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/${var.project_name}/*",
+      "arn:aws:elasticfilesystem:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:file-system/*",
+      "arn:aws:elasticfilesystem:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:access-point/*"
     ]
 
     effect = "Allow"
-
   }
 }
-
-data "aws_caller_identity" "current" {}

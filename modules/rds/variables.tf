@@ -18,6 +18,12 @@ variable "db_username" {
   type        = string
 }
 
+variable "db_password" {
+  description = "Database master password"
+  type        = string
+  sensitive   = true
+}
+
 variable "db_engine" {
   description = "Database Engine Type"
   type        = string

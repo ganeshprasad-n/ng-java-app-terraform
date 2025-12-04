@@ -10,15 +10,15 @@ resource "aws_iam_role" "wordpress_role" {
 }
 
 # Policy
-resource "aws_iam_policy" "rds_and_secret_access" {
-  name   = "${var.project_name}-secrets-access"
-  policy = data.aws_iam_policy_document.rds_and_secret_manager.json
+resource "aws_iam_policy" "rds_and_ssm_access" {
+  name   = "${var.project_name}-ssm-access"
+  policy = data.aws_iam_policy_document.rds_and_ssm_access.json
 }
 
 # Policy Attachment
-resource "aws_iam_role_policy_attachment" "attach_secrets_policy" {
+resource "aws_iam_role_policy_attachment" "attach_ssm_policy" {
   role       = aws_iam_role.wordpress_role.name
-  policy_arn = aws_iam_policy.rds_and_secret_access.arn
+  policy_arn = aws_iam_policy.rds_and_ssm_access.arn
 }
 
 # Instance Profile

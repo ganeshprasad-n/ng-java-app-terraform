@@ -38,6 +38,12 @@ variable "db_username" {
   type        = string
 }
 
+variable "db_password" {
+  description = "Master password for the RDS database"
+  type        = string
+  sensitive   = true
+}
+
 variable "db_instance_class" {
   description = "RDS instance class"
   type        = string
@@ -87,9 +93,3 @@ variable "alb_instance_type" {
   description = "EC2 instance type"
   type        = string
 }
-
-variable "db_password" {
-  type      = string
-  sensitive = true
-}
-
