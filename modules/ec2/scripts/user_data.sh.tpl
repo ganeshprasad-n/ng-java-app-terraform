@@ -25,9 +25,11 @@ type=rpm-md
 EOF
 
 yum install -y elasticsearch
-systemctl enable elasticsearch
-systemctl start elasticsearch
 
 # Configure Elasticsearch to listen on private IP
 echo "network.host: 0.0.0.0" >> /etc/elasticsearch/elasticsearch.yml
+
+systemctl enable elasticsearch
+systemctl start elasticsearch
+
 systemctl restart elasticsearch

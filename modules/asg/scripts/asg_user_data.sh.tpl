@@ -2,15 +2,11 @@
 # Update system
 yum update -y
 
-# Install dependencies
-yum install -y amazon-efs-utils
+# Install AWS CLI
+yum install -y awscli
 
-# Mount EFS
-mkdir -p /mnt/efs
-mount -t efs ${efs_id}:/ /mnt/efs
-
-# Copy WAR file from EFS to Tomcat (Tomcat already in AMI)
-cp /mnt/efs/vprofile-v2.war /opt/tomcat/webapps/ROOT.war
+# Download WAR from S3
+aws s3 cp s3://ng-java-app-artifacts-staging/vprofile-v2.war /opt/tomcat/webapps/ROOT.war
 
 # Configure application.properties with RDS/ElastiCache/Backend endpoints
 cat > /opt/tomcat/webapps/application.properties <<EOF
@@ -23,5 +19,6 @@ elasticsearch.host=${backend_ip}
 EOF
 
 # Start Tomcat
-systemctl start tomcat
+systemctl daemon-reload
 systemctl enable tomcat
+systemctl start tomcat
