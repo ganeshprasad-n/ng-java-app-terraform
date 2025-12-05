@@ -1,3 +1,4 @@
+#Use only when Amazon default AMI required, in our case this data is just a dummy.
 data "aws_ami" "amazon_linux_2023" {
   most_recent = true
   owners      = ["amazon"]

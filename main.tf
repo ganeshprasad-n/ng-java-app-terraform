@@ -113,7 +113,7 @@ module "asg" {
   target_group_arn  = module.alb.target_group_arn
 
   # New variables for Java app
-  ami_id             = "ami-072e7378ecd62a7b1"
+  ami_id             = var.ami_id
   efs_id             = module.efs.file_system_id
   rds_endpoint       = module.rds.rds_endpoint
   db_user            = var.db_username
@@ -123,6 +123,13 @@ module "asg" {
 }
 
 module "cloudwatch" {
-  source   = "./modules/cloudwatch"
-  asg_name = module.asg.asg_name
+  source = "./modules/cloudwatch"
+
+  project_name         = var.project_name
+  environment          = var.environment
+  asg_name             = module.asg.asg_name
+  cpu_high_threshold   = var.cpu_high_threshold
+  cpu_low_threshold    = var.cpu_low_threshold
+  scale_out_adjustment = var.scale_out_adjustment
+  scale_in_adjustment  = var.scale_in_adjustment
 }

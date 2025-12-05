@@ -23,6 +23,11 @@ variable "default-route" {
   type        = string
 }
 
+variable "ami_id" {
+  description = "Golden AMI ID for ASG instances"
+  type        = string
+}
+
 variable "ec2_instance_type" {
   description = "EC2 instance type"
   type        = string
@@ -92,4 +97,29 @@ variable "desired_capacity" {
 variable "alb_instance_type" {
   description = "EC2 instance type"
   type        = string
+}
+
+#Cloudwatch variables
+variable "cpu_high_threshold" {
+  description = "CPU % threshold for scale-out alarm"
+  type        = number
+  default     = 70
+}
+
+variable "cpu_low_threshold" {
+  description = "CPU % threshold for scale-in alarm"
+  type        = number
+  default     = 30
+}
+
+variable "scale_out_adjustment" {
+  description = "Number of instances to add on scale-out"
+  type        = number
+  default     = 2
+}
+
+variable "scale_in_adjustment" {
+  description = "Number of instances to remove on scale-in"
+  type        = number
+  default     = -1
 }

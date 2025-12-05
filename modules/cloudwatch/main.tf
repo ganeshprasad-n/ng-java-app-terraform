@@ -28,6 +28,11 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   dimensions = {
     AutoScalingGroupName = var.asg_name
   }
+
+  tags = {
+    Name        = "${var.project_name}-high-cpu-alarm"
+    Environment = var.environment
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "low_cpu" {
@@ -43,5 +48,10 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu" {
 
   dimensions = {
     AutoScalingGroupName = var.asg_name
+  }
+
+  tags = {
+    Name        = "${var.project_name}-low-cpu-alarm"
+    Environment = var.environment
   }
 }
