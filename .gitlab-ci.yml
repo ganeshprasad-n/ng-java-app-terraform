@@ -67,6 +67,7 @@ plan:
   script:
     - terraform plan -var-file=staging.tfvars -out=planfile
     - terraform show -no-color planfile > planfile.txt
+    - echo "plan stage completed"
   artifacts:
     paths:
       - planfile
