@@ -65,6 +65,7 @@ plan:
   dependencies:
     - init
   script:
+    - terraform init
     - terraform plan -var-file=staging.tfvars -out=planfile
     - terraform show -no-color planfile > planfile.txt
   artifacts:
@@ -79,6 +80,7 @@ apply:
   dependencies:
     - plan
   script:
+    - terraform init
     - terraform apply -input=false planfile
     - terraform output > output.txt
   artifacts:
@@ -91,6 +93,7 @@ destroy:
   dependencies:
     - init
   script:
+    - terraform init
     - terraform destroy -var-file=staging.tfvars --auto-approve | tee destroy-output.txt
   artifacts:
     paths:
