@@ -1,0 +1,45 @@
+# Separate pipeline for destroying infrastructure
+stages:
+  - destroy
+
+image:
+  name: hashicorp/terraform:1.10
+  entrypoint: [""]
+
+variables:
+  AWS_DEFAULT_REGION: "us-east-1"
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: always
+    - when: never
+
+before_script:
+  - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+destroy-staging:
+  stage: destroy
+  environment:
+    name: staging
+    action: stop
+  script:
+    - echo "⚠️  INFRASTRUCTURE DESTRUCTION INITIATED ⚠️"
+    - echo "Environment: STAGING"
+    - echo "Triggered by: ${GITLAB_USER_NAME}"
+    - terraform init
+    - terraform plan -destroy -var-file=staging.tfvars -out=destroy.plan
+    - echo "⏳ Waiting 30 seconds before destruction..."
+    - echo "Cancel this job NOW if triggered by mistake!"
+    - for i in 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1; do echo "Destroying in $i seconds..."; sleep 1; done
+    - echo "🔥 EXECUTING DESTRUCTION NOW 🔥"
+    - terraform apply destroy.plan
+  artifacts:
+    paths:
+      - destroy.plan
+    expire_in: 90 days
+  rules:
+    - if: $DESTROY_CONFIRMED == "yes"
+      when: manual
+    - when: never
