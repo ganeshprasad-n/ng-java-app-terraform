@@ -12,6 +12,8 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
       when: always
+    - if: $CI_COMMIT_BRANCH == "staging"   # ADD THIS LINE
+      when: always
     - when: never
 
 before_script:
