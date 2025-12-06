@@ -87,16 +87,3 @@ apply:
     paths:
       - output.txt
   when: manual
-
-destroy:
-  stage: destroy
-  dependencies:
-    - init
-  script:
-    - terraform init
-    - terraform destroy -var-file=staging.tfvars --auto-approve | tee destroy-output.txt
-  artifacts:
-    paths:
-      - destroy-output.txt
-    expire_in: 7 days
-  when: manual
