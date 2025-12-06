@@ -24,7 +24,7 @@ destroy-staging:
     name: staging
     action: stop
   script:
-    - "echo STARTING DESTRUCTION...."
+    - "echo STARTING DESTRUCTION.."
     - "terraform init"
     - "terraform plan -destroy -var-file=staging.tfvars -out=destroy.plan"
     - "echo Waiting 30 seconds... Cancel now if this is a mistake."
