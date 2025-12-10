@@ -79,6 +79,6 @@ variable "backend_ip" {
 }
 
 variable "ami_id" {
-  description = "AMI ID for launch template"
+  description = "AMI ID for app servers"
   type        = string
 }

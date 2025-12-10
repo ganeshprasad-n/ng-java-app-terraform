@@ -40,6 +40,7 @@ module "ec2" {
   environment        = var.environment
   vpc_id             = module.network.vpc_id
   aws_region         = var.aws_region
+  backend_ami_id     = var.backend_ami_id
   subnet_id          = module.network.private_subnet_ids[1]
   security_group_ids = [module.security.backend_sg_id]
   target_group_arn   = module.alb.target_group_arn

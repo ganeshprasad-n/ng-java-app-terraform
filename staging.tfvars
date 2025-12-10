@@ -11,9 +11,6 @@ default-route = "0.0.0.0/0"
 ec2_instance_type = "t3.micro" # Backend services
 alb_instance_type = "t3.micro" # App tier instances
 
-# ASG Configuration
-ami_id = "ami-072e7378ecd62a7b1"
-
 desired_capacity = 1
 min_size         = 1
 max_size         = 2

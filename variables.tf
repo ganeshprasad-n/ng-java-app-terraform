@@ -28,6 +28,11 @@ variable "ami_id" {
   type        = string
 }
 
+variable "backend_ami_id" {
+  description = "AMI ID for backend server (RabbitMQ + Elasticsearch)"
+  type        = string
+}
+
 variable "ec2_instance_type" {
   description = "EC2 instance type"
   type        = string

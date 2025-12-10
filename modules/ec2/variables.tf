@@ -37,3 +37,8 @@ variable "target_group_arn" {
   description = "ARN of the ALB target group"
   type        = string
 }
+
+variable "backend_ami_id" {
+  description = "AMI ID for backend server (RabbitMQ + Elasticsearch)"
+  type        = string
+}
