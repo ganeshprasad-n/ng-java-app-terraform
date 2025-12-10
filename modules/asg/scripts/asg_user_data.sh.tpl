@@ -4,7 +4,7 @@ exec > >(tee /var/log/app-user-data.log) 2>&1
 
 echo "=== App Server User Data: $(date) ==="
 
-REGION="ap-south-1"
+REGION="us-east-1"
 
 sleep 10
 
