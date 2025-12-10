@@ -8,8 +8,8 @@ vpc_cidr      = "10.0.0.0/16"
 default-route = "0.0.0.0/0"
 
 # AMI IDs
-app_ami_id     = "ami-022e804496ea4db74a"  # ← App Server AMI
-backend_ami_id = "ami-07d4c1388ea60349f"   # ← Backend Services AMI
+app_ami_id     = "ami-022e804496ea4db74a" # ← App Server AMI
+backend_ami_id = "ami-07d4c1388ea60349f"  # ← Backend Services AMI
 
 # EC2 Configuration
 ec2_instance_type = "t3.micro" # Backend services
